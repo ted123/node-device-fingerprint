@@ -17,7 +17,7 @@ server.connection( {
 } );
 
 server.route( {
-	path    : '/test',
+	path    : '/',
 	method  : 'GET',
 	handler : function ( request, reply ) {
 		reply.file( './public/production.html' );
