@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>HTML5 boilerplate – all you really need…</title>
+	<link rel="stylesheet" href="css/style.css">
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+
+<body id="home">
+	<h1>HTML5 boilerplate</h1>
+</body>
+<script type="text/javascript">
+	window.onload = function () {
+		var getS = {
+			'availHeight'  : window.screen.availHeight,
+			'availLeft'    : window.screen.availLeft,
+			'availTop'     : window.screen.availTop,
+			'availWidth'   : window.screen.availWidth,
+			'clientHeight' : window.screen.clientHeight,
+			'clientWidth'  : window.screen.clientWidth,
+			'colorDepth'   : window.screen.colorDepth,
+			'height'       : window.screen.height,
+			'left'         : window.screen.left,
+			'offsetHeight' : window.screen.offsetHeight,
+			'offsetWidth'  : window.screen.offsetWidth,
+			'pixelDepth'   : window.screen.pixelDepth,
+			'top'          : window.screen.top,
+			'width'        : window.screen.width
+		};
+
+		var getN = {
+			'userAgent'   : window.navigator.userAgent,
+			'appCodeName' : window.navigator.appCodeName,
+			'appName'     : window.navigator.appName,
+			'appVersion'  : window.navigator.appVersion,
+			'language'    : window.navigator.language,
+			'platform'    : window.navigator.platform,
+			'oscpu'       : window.navigator.oscpu,
+			'vendor'      : window.navigator.vendor,
+			'vendorSub'   : window.navigator.vendorSub,
+			'product'     : window.navigator.product,
+			'productSub'  : window.navigator.productSub,
+			'buildID'     : window.navigator.buildID,
+			'plugins'     : window.navigator.plugins,
+
+		}
+
+		var xmlhttp = new XMLHttpRequest();
+		var req     = new XMLHttpRequest();
+		req.onreadystatechange = function () {
+	        if (req.readyState === 4) {
+				console.log(req.getAllResponseHeaders());
+				xmlhttp.open("POST","/process-fingerprint",true);
+				xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				xmlhttp.send("wscreen="+JSON.stringify(getS)+"&wnavigator="+JSON.stringify(getN)+"&http="+JSON.stringify(req.getAllResponseHeaders()));
+			}
+		};
+		req.open('HEAD', document.location, true);
+		req.send(null);
+
+	};
+</script>
+</script>
+</html>
