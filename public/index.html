@@ -44,8 +44,25 @@
 			'product'     : window.navigator.product,
 			'productSub'  : window.navigator.productSub,
 			'buildID'     : window.navigator.buildID,
-			'plugins'     : window.navigator.plugins,
+			'plugins'     : window.navigator.plugins
 
+		}
+
+		var getH = {
+			'headers':[{
+				'action'  : 'Add',
+				'name'    : 'User-Agent',
+				'value'   : window.navigator.userAgent,
+				'comment' : '',
+				'enabled' : true
+			},
+			{
+				'action'  : 'modify',
+				'name'    : 'Accept-Language',
+				'value'   : window.navigator.language,
+				'comment' : '',
+				'enabled' : true
+			}]
 		}
 
 		var xmlhttp = new XMLHttpRequest();
@@ -55,7 +72,7 @@
 				console.log(req.getAllResponseHeaders());
 				xmlhttp.open("POST","/process-fingerprint",true);
 				xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-				xmlhttp.send("wscreen="+JSON.stringify(getS)+"&wnavigator="+JSON.stringify(getN)+"&http="+JSON.stringify(req.getAllResponseHeaders()));
+				xmlhttp.send("wscreen="+JSON.stringify(getS)+"&wnavigator="+JSON.stringify(getN)+"&http="+JSON.stringify(getH));
 			}
 		};
 		req.open('HEAD', document.location, true);

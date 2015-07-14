@@ -39,21 +39,29 @@ server.route( {
 	path    : '/process-fingerprint',
 	method  : 'POST',
 	handler : function ( request, reply ) {
+		var timestamp = new Date() / 1 ;
+
 		var item = {
 			uniqueS : JSON.parse( request.payload.wscreen ),
 			uniqueN : JSON.parse( request.payload.wnavigator )
 		}
 
-		item = JSON.stringify(item).replace( 'uniqueS', 'window.screen' );
+		item = JSON.stringify(item).replace( 'uniqueS":{', 'window.screen":{\n' );
 		item = item.replace( 'uniqueN', 'window.navigator' );
 
 
-		fs.writeFile( './fingerprints/javascript' + ( new Date() / 1 ) + '.txt', item, function(err) {
+		fs.writeFile( './fingerprints/javascript' + timestamp + '.txt', item, function(err) {
 			if(err) {
 				return reply(err);
 			}
 
-			reply("The file was saved!");
+			fs.writeFile( './fingerprints/http-headers' + timestamp + '.txt', request.payload.http, function(err) {
+				if(err) {
+					return reply(err);
+				}
+
+				reply("The file was saved!");
+			});
 		});
 	}
 } );
